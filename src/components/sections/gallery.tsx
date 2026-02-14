@@ -3,32 +3,26 @@
 import { motion } from "framer-motion";
 import { ParallaxScrollSecond } from "@/components/ui/parallax-scroll";
 
-// All food, restaurant, and event images from Fusion East — repeated to fill the 3-column parallax grid
+// All 18 gallery images from Fusion East — fills the 3-column parallax grid (6 per column)
 const galleryImages = [
-  "/images/gallery/food-plating.jpg",
-  "/images/gallery/caribbean-breakfast.jpg",
-  "/images/gallery/food-service.jpg",
-  "/images/gallery/restaurant-interior.jpg",
-  "/images/gallery/food-truck-1.jpg",
-  "/images/gallery/event-fundraising.jpg",
-  "/images/gallery/food-truck-2.jpg",
-  "/images/gallery/food-truck-3.jpg",
-  "/images/gallery/food-plating.jpg",
-  "/images/gallery/food-service.jpg",
-  "/images/gallery/caribbean-breakfast.jpg",
-  "/images/gallery/restaurant-interior.jpg",
-  "/images/gallery/food-truck-3.jpg",
-  "/images/gallery/event-fundraising.jpg",
-  "/images/gallery/food-truck-1.jpg",
-  "/images/gallery/food-truck-2.jpg",
-  "/images/gallery/food-plating.jpg",
-  "/images/gallery/caribbean-breakfast.jpg",
-  "/images/gallery/food-service.jpg",
-  "/images/gallery/restaurant-interior.jpg",
-  "/images/gallery/food-truck-1.jpg",
-  "/images/gallery/event-fundraising.jpg",
-  "/images/gallery/food-truck-2.jpg",
-  "/images/gallery/food-truck-3.jpg",
+  "/images/gallery/gallery-1.webp",
+  "/images/gallery/gallery-2.webp",
+  "/images/gallery/gallery-3.webp",
+  "/images/gallery/gallery-4.webp",
+  "/images/gallery/gallery-5.webp",
+  "/images/gallery/gallery-6.webp",
+  "/images/gallery/gallery-7.webp",
+  "/images/gallery/gallery-8.webp",
+  "/images/gallery/gallery-9.webp",
+  "/images/gallery/gallery-10.webp",
+  "/images/gallery/gallery-11.webp",
+  "/images/gallery/gallery-12.webp",
+  "/images/gallery/gallery-13.webp",
+  "/images/gallery/gallery-14.webp",
+  "/images/gallery/gallery-15.webp",
+  "/images/gallery/gallery-16.webp",
+  "/images/gallery/gallery-17.webp",
+  "/images/gallery/gallery-18.webp",
 ];
 
 export function GallerySection() {
