@@ -40,6 +40,7 @@ export function ImageCarouselHero({
 }: ImageCarouselHeroProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [rotatingCards, setRotatingCards] = useState<number[]>([])
+  const [orbitRadius, setOrbitRadius] = useState(170)
 
   // Continuous rotation animation
   useEffect(() => {
@@ -54,6 +55,16 @@ export function ImageCarouselHero({
   useEffect(() => {
     setRotatingCards(images.map((_, i) => i * (360 / images.length)))
   }, [images.length])
+
+  // Responsive orbit radius
+  useEffect(() => {
+    const updateRadius = () => {
+      setOrbitRadius(window.innerWidth < 640 ? 100 : 170)
+    }
+    updateRadius()
+    window.addEventListener("resize", updateRadius)
+    return () => window.removeEventListener("resize", updateRadius)
+  }, [])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -149,19 +160,19 @@ export function ImageCarouselHero({
             )}
           </motion.div>
 
-          {/* Right — Carousel */}
+          {/* Right — Carousel (visible on all screens) */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative h-[400px] sm:h-[480px] lg:h-[520px] hidden sm:block"
+            className="relative h-[280px] sm:h-[400px] lg:h-[520px]"
             onMouseMove={handleMouseMove}
           >
             {/* Rotating Image Cards */}
             <div className="absolute inset-0 flex items-center justify-center" style={{ perspective: "800px" }}>
               {images.map((image, index) => {
                 const angle = (rotatingCards[index] || 0) * (Math.PI / 180)
-                const radius = 170
+                const radius = orbitRadius
                 const x = Math.cos(angle) * radius
                 const y = Math.sin(angle) * radius
 
@@ -172,7 +183,7 @@ export function ImageCarouselHero({
                 return (
                   <div
                     key={image.id}
-                    className="absolute w-28 h-36 sm:w-32 sm:h-40 lg:w-36 lg:h-44 transition-all duration-300"
+                    className="absolute w-20 h-24 sm:w-32 sm:h-40 lg:w-36 lg:h-44 transition-all duration-300"
                     style={{
                       transform: `
                         translate(${x}px, ${y}px)
@@ -185,7 +196,7 @@ export function ImageCarouselHero({
                   >
                     <div
                       className={cn(
-                        "relative w-full h-full rounded-2xl overflow-hidden shadow-2xl",
+                        "relative w-full h-full rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl",
                         "transition-all duration-300 hover:shadow-gold/20 hover:shadow-3xl hover:scale-110",
                         "cursor-pointer group",
                         "border border-white/10",
