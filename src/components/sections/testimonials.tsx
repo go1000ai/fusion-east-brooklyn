@@ -68,10 +68,10 @@ export function TestimonialsSection() {
           </TimelineContent>
         </article>
 
-        {/* Testimonial Grid — 3 columns */}
-        <div className="lg:grid lg:grid-cols-3 gap-3 flex flex-col w-full lg:px-0 px-2">
+        {/* Testimonial Grid — 3 columns on desktop, stacked on mobile */}
+        <div className="flex flex-col gap-3 lg:grid lg:grid-cols-3 w-full">
           {/* Column 1 */}
-          <div className="md:flex lg:flex-col lg:space-y-3 h-full lg:gap-0 gap-3">
+          <div className="flex flex-col gap-3">
             <TimelineContent
               animationNum={0}
               customVariants={revealVariants}
@@ -115,7 +115,7 @@ export function TestimonialsSection() {
           </div>
 
           {/* Column 2 */}
-          <div className="lg:h-full md:flex lg:flex-col h-fit lg:space-y-3 lg:gap-0 gap-3">
+          <div className="flex flex-col gap-3">
             <TimelineContent
               animationNum={2}
               customVariants={revealVariants}
@@ -178,7 +178,7 @@ export function TestimonialsSection() {
           </div>
 
           {/* Column 3 */}
-          <div className="h-full md:flex lg:flex-col lg:space-y-3 lg:gap-0 gap-3">
+          <div className="flex flex-col gap-3">
             <TimelineContent
               animationNum={5}
               customVariants={revealVariants}

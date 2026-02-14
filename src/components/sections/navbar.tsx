@@ -49,7 +49,7 @@ export function Navbar() {
                 alt="Fusion East"
                 width={100}
                 height={100}
-                className="h-[100px] w-[100px] rounded-full object-cover"
+                className="h-[60px] w-[60px] sm:h-[80px] sm:w-[80px] lg:h-[100px] lg:w-[100px] rounded-full object-cover"
               />
             </Link>
 

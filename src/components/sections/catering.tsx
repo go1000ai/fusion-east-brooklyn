@@ -52,7 +52,7 @@ export function CateringSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5 }}
-            className="group relative overflow-hidden rounded-3xl border border-dark-border bg-dark-card"
+            className="group relative overflow-hidden rounded-3xl border border-dark-border bg-dark-card flex flex-col"
           >
             {/* Catering Image Gallery */}
             <div className="grid grid-cols-2 gap-1">
@@ -69,7 +69,7 @@ export function CateringSection() {
               ))}
             </div>
 
-            <div className="p-8 sm:p-10">
+            <div className="p-6 sm:p-10 flex flex-col flex-1 items-center text-center md:items-start md:text-left">
             <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gold/10">
               <UtensilsCrossed className="h-7 w-7 text-gold" />
             </div>
@@ -82,12 +82,12 @@ export function CateringSection() {
             </p>
 
             {/* Coverage Area */}
-            <div className="mt-6 flex flex-wrap gap-2">
-              {["Brooklyn", "Manhattan", "Queens", "Bronx", "Staten Island", "NJ", "CT", "Westchester", "Long Island"].map(
+            <div className="mt-6 grid grid-cols-3 gap-2">
+              {["Brooklyn", "Manhattan", "Queens", "Bronx", "Staten Is.", "NJ", "CT", "Westchester", "Long Island"].map(
                 (area) => (
                   <span
                     key={area}
-                    className="rounded-full bg-dark-lighter px-3 py-1 text-xs text-warm-white/50"
+                    className="rounded-full bg-dark-lighter px-3 py-1.5 text-center text-xs text-warm-white/50"
                   >
                     {area}
                   </span>
@@ -118,13 +118,15 @@ export function CateringSection() {
               ))}
             </div>
 
+            <div className="mt-auto pt-8">
             <Link
               href="#contact"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-dark transition-all hover:bg-gold-light"
+              className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-dark transition-all hover:bg-gold-light"
             >
               <Users className="h-4 w-4" />
               Plan Your Event
             </Link>
+            </div>
             </div>
 
             <div className="pointer-events-none absolute -bottom-12 -right-12 h-40 w-40 rounded-full bg-gold/5 blur-3xl transition-all group-hover:bg-gold/10" />
@@ -136,7 +138,7 @@ export function CateringSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="group relative overflow-hidden rounded-3xl border border-dark-border bg-dark-card"
+            className="group relative overflow-hidden rounded-3xl border border-dark-border bg-dark-card flex flex-col"
           >
             {/* Food Truck Image Gallery */}
             <div className="grid grid-cols-2 gap-1">
@@ -154,7 +156,7 @@ export function CateringSection() {
             </div>
 
             {/* Content below images */}
-            <div className="p-8 sm:p-10">
+            <div className="p-6 sm:p-10 flex flex-col flex-1 items-center text-center md:items-start md:text-left">
               <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-coral/10">
                 <Truck className="h-7 w-7 text-coral" />
               </div>
@@ -192,13 +194,15 @@ export function CateringSection() {
                 </p>
               </div>
 
+              <div className="mt-auto pt-8">
               <Link
                 href="#contact"
-                className="mt-8 inline-flex items-center gap-2 rounded-full border border-coral bg-transparent px-6 py-3 text-sm font-semibold text-coral transition-all hover:bg-coral hover:text-warm-white"
+                className="inline-flex items-center gap-2 rounded-full border border-coral bg-transparent px-6 py-3 text-sm font-semibold text-coral transition-all hover:bg-coral hover:text-warm-white"
               >
                 <Truck className="h-4 w-4" />
                 Book the Truck
               </Link>
+              </div>
             </div>
 
             <div className="pointer-events-none absolute -bottom-12 -right-12 h-40 w-40 rounded-full bg-coral/5 blur-3xl transition-all group-hover:bg-coral/10" />

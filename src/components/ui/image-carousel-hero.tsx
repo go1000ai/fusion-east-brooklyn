@@ -64,7 +64,7 @@ export function ImageCarouselHero({
   }
 
   return (
-    <div className="relative w-full h-screen max-h-[900px] overflow-hidden">
+    <div className="relative w-full h-[85vh] sm:h-screen max-h-[900px] overflow-hidden">
       {/* Fixed Background Image — stays in place while page scrolls */}
       {backgroundImage && (
         <>
@@ -86,23 +86,23 @@ export function ImageCarouselHero({
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background to-transparent z-[2]" />
 
       {/* Main content: left text + right carousel */}
-      <div className="relative z-10 flex items-center h-full px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28">
+      <div className="relative z-10 flex items-center h-full px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28">
         <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Left — Text content */}
+          {/* Left — Text content (centered on mobile) */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative z-20"
+            className="relative z-20 text-center lg:text-left"
           >
             <p className="mb-3 text-sm font-medium uppercase tracking-[0.3em] text-gold">
               {subtitle}
             </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold text-warm-white mb-5 leading-tight">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold text-warm-white mb-5 leading-tight">
               {title}
             </h1>
 
-            <p className="text-base sm:text-lg text-warm-white/70 mb-8 max-w-lg">
+            <p className="text-base sm:text-lg text-warm-white/70 mb-8 max-w-lg mx-auto lg:mx-0">
               {description}
             </p>
 
@@ -121,7 +121,7 @@ export function ImageCarouselHero({
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
 
-            {/* Features — inline below text on desktop */}
+            {/* Features — inline below text on desktop, stacked on mobile */}
             {features.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -133,7 +133,7 @@ export function ImageCarouselHero({
                   <div
                     key={index}
                     className={cn(
-                      "p-4 rounded-xl",
+                      "p-4 rounded-xl text-center sm:text-left",
                       "bg-dark/50 backdrop-blur-md border border-white/10",
                       "hover:border-gold/30 transition-all duration-300",
                       "group",

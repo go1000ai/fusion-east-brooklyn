@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Phone, Clock, Mail, Instagram, Facebook } from "lucide-react";
+import { MapPin, Phone, Clock, Mail, Instagram, Facebook, Navigation } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -35,14 +35,14 @@ export function ContactSection() {
         <div className="grid gap-12 lg:grid-cols-2">
           {/* Left — Info */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
             className="space-y-8"
           >
             {/* Address */}
-            <div className="flex gap-4">
+            <div className="flex flex-col items-center text-center gap-3 sm:flex-row sm:items-start sm:text-left sm:gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gold/10">
                 <MapPin className="h-5 w-5 text-gold" />
               </div>
@@ -59,7 +59,7 @@ export function ContactSection() {
             </div>
 
             {/* Phone */}
-            <div className="flex gap-4">
+            <div className="flex flex-col items-center text-center gap-3 sm:flex-row sm:items-start sm:text-left sm:gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gold/10">
                 <Phone className="h-5 w-5 text-gold" />
               </div>
@@ -75,7 +75,7 @@ export function ContactSection() {
             </div>
 
             {/* Hours */}
-            <div className="flex gap-4">
+            <div className="flex flex-col items-center text-center gap-3 sm:flex-row sm:items-start sm:text-left sm:gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gold/10">
                 <Clock className="h-5 w-5 text-gold" />
               </div>
@@ -105,7 +105,7 @@ export function ContactSection() {
             </div>
 
             {/* Social + CTA */}
-            <div className="flex flex-col gap-4 pt-4 sm:flex-row sm:items-center">
+            <div className="flex flex-col items-center gap-4 pt-4 sm:flex-row sm:items-center sm:justify-start">
               <a
                 href="tel:7189755065"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-dark transition-all hover:bg-gold-light"
@@ -143,7 +143,7 @@ export function ContactSection() {
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3027.5!2d-73.8667!3d40.6436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25d3f3b28a6bd%3A0x8f3e3e3e3e3e3e3e!2s1179%20Elton%20St%2C%20Brooklyn%2C%20NY%2011239!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
               width="100%"
-              height="450"
+              height="400"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
@@ -151,6 +151,27 @@ export function ContactSection() {
               className="grayscale-[50%] invert-[90%] hue-rotate-180"
               title="Fusion East location"
             />
+            {/* Direction buttons */}
+            <div className="flex gap-3 p-4 bg-dark-card">
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=1179+Elton+Street+Brooklyn+NY+11239"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-dark transition-all hover:bg-gold-light"
+              >
+                <Navigation className="h-4 w-4" />
+                Google Maps
+              </a>
+              <a
+                href="https://waze.com/ul?q=1179+Elton+Street+Brooklyn+NY+11239&navigate=yes"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-gold px-5 py-2.5 text-sm font-semibold text-gold transition-all hover:bg-gold hover:text-dark"
+              >
+                <Navigation className="h-4 w-4" />
+                Waze
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>
