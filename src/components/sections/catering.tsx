@@ -2,7 +2,22 @@
 
 import { motion } from "framer-motion";
 import { Truck, UtensilsCrossed, Users, MapPin } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+
+const cateringImages = [
+  { src: "/images/gallery/food-plating.jpg", alt: "Fusion East catering plated dish" },
+  { src: "/images/gallery/food-service.jpg", alt: "Fusion East catering food service" },
+  { src: "/images/gallery/event-fundraising.jpg", alt: "Fusion East catering at a fundraising event" },
+  { src: "/images/gallery/caribbean-breakfast.jpg", alt: "Fusion East catering breakfast spread" },
+];
+
+const foodTruckImages = [
+  { src: "/images/gallery/food-truck-1.jpg", alt: "Fusion East food truck serving at an event" },
+  { src: "/images/gallery/food-truck-2.jpg", alt: "Fusion East food truck setup" },
+  { src: "/images/gallery/food-truck-3.jpg", alt: "Fusion East food truck catering" },
+  { src: "/images/gallery/food-truck-events.webp", alt: "Food truck available for events" },
+];
 
 export function CateringSection() {
   return (
@@ -37,8 +52,24 @@ export function CateringSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5 }}
-            className="group relative overflow-hidden rounded-3xl border border-dark-border bg-dark-card p-8 sm:p-10"
+            className="group relative overflow-hidden rounded-3xl border border-dark-border bg-dark-card"
           >
+            {/* Catering Image Gallery */}
+            <div className="grid grid-cols-2 gap-1">
+              {cateringImages.map((img, idx) => (
+                <div key={idx} className="relative h-40 overflow-hidden">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <div className="p-8 sm:p-10">
             <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gold/10">
               <UtensilsCrossed className="h-7 w-7 text-gold" />
             </div>
@@ -94,6 +125,7 @@ export function CateringSection() {
               <Users className="h-4 w-4" />
               Plan Your Event
             </Link>
+            </div>
 
             <div className="pointer-events-none absolute -bottom-12 -right-12 h-40 w-40 rounded-full bg-gold/5 blur-3xl transition-all group-hover:bg-gold/10" />
           </motion.div>
@@ -104,52 +136,70 @@ export function CateringSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="group relative overflow-hidden rounded-3xl border border-dark-border bg-dark-card p-8 sm:p-10"
+            className="group relative overflow-hidden rounded-3xl border border-dark-border bg-dark-card"
           >
-            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-coral/10">
-              <Truck className="h-7 w-7 text-coral" />
-            </div>
-            <h3 className="font-serif text-2xl font-bold text-warm-white sm:text-3xl">
-              Food Truck
-            </h3>
-            <p className="mt-4 text-warm-white/60 leading-relaxed">
-              Our mobile kitchen brings Fusion East flavors to your block party, corporate event,
-              festival, or fundraiser. Full menu available on wheels.
-            </p>
-
-            {/* Services */}
-            <div className="mt-6 space-y-3">
-              {[
-                { icon: MapPin, text: "Available across the NYC metro area" },
-                { icon: Users, text: "Corporate events & private parties" },
-                { icon: UtensilsCrossed, text: "Fundraising partnerships welcome" },
-              ].map((item) => {
-                const ItemIcon = item.icon;
-                return (
-                  <div key={item.text} className="flex items-center gap-3">
-                    <ItemIcon className="h-4 w-4 shrink-0 text-coral/60" />
-                    <span className="text-sm text-warm-white/60">{item.text}</span>
-                  </div>
-                );
-              })}
+            {/* Food Truck Image Gallery */}
+            <div className="grid grid-cols-2 gap-1">
+              {foodTruckImages.map((img, idx) => (
+                <div key={idx} className="relative h-40 overflow-hidden">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                </div>
+              ))}
             </div>
 
-            {/* Fundraising callout */}
-            <div className="mt-8 rounded-xl border border-coral/20 bg-coral/5 p-4">
-              <p className="text-sm font-semibold text-coral">Fundraising Partners</p>
-              <p className="mt-1 text-xs text-warm-white/50">
-                We partner with schools, churches, and community organizations for fundraising events.
-                Let&apos;s work together.
+            {/* Content below images */}
+            <div className="p-8 sm:p-10">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-coral/10">
+                <Truck className="h-7 w-7 text-coral" />
+              </div>
+              <h3 className="font-serif text-2xl font-bold text-warm-white sm:text-3xl">
+                Food Truck
+              </h3>
+              <p className="mt-4 text-warm-white/60 leading-relaxed">
+                Our mobile kitchen brings Fusion East flavors to your block party, corporate event,
+                festival, or fundraiser. Full menu available on wheels.
               </p>
-            </div>
 
-            <Link
-              href="#contact"
-              className="mt-8 inline-flex items-center gap-2 rounded-full border border-coral bg-transparent px-6 py-3 text-sm font-semibold text-coral transition-all hover:bg-coral hover:text-warm-white"
-            >
-              <Truck className="h-4 w-4" />
-              Book the Truck
-            </Link>
+              {/* Services */}
+              <div className="mt-6 space-y-3">
+                {[
+                  { icon: MapPin, text: "Available across the NYC metro area" },
+                  { icon: Users, text: "Corporate events & private parties" },
+                  { icon: UtensilsCrossed, text: "Fundraising partnerships welcome" },
+                ].map((item) => {
+                  const ItemIcon = item.icon;
+                  return (
+                    <div key={item.text} className="flex items-center gap-3">
+                      <ItemIcon className="h-4 w-4 shrink-0 text-coral/60" />
+                      <span className="text-sm text-warm-white/60">{item.text}</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Fundraising callout */}
+              <div className="mt-8 rounded-xl border border-coral/20 bg-coral/5 p-4">
+                <p className="text-sm font-semibold text-coral">Fundraising Partners</p>
+                <p className="mt-1 text-xs text-warm-white/50">
+                  We partner with schools, churches, and community organizations for fundraising events.
+                  Let&apos;s work together.
+                </p>
+              </div>
+
+              <Link
+                href="#contact"
+                className="mt-8 inline-flex items-center gap-2 rounded-full border border-coral bg-transparent px-6 py-3 text-sm font-semibold text-coral transition-all hover:bg-coral hover:text-warm-white"
+              >
+                <Truck className="h-4 w-4" />
+                Book the Truck
+              </Link>
+            </div>
 
             <div className="pointer-events-none absolute -bottom-12 -right-12 h-40 w-40 rounded-full bg-coral/5 blur-3xl transition-all group-hover:bg-coral/10" />
           </motion.div>

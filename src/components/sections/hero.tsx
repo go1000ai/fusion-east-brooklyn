@@ -83,6 +83,7 @@ export function HeroSection() {
         ctaText="Explore Our Menu"
         onCtaClick={scrollToMenu}
         images={foodImages}
+        backgroundImage="/images/gallery/restaurant-interior.jpg"
         features={heroFeatures}
       />
     </section>

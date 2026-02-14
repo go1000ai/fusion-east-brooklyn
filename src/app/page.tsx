@@ -16,14 +16,16 @@ export default function Home() {
       <Navbar />
       <main>
         <HeroSection />
-        <RestaurantSection />
-        <BarSection />
-        <EventsSection />
-        <AboutSection />
-        <CateringSection />
-        <TestimonialsSection />
-        <ContactSection />
-        <GallerySection />
+        <div className="relative z-[3] bg-background">
+          <RestaurantSection />
+          <BarSection />
+          <EventsSection />
+          <AboutSection />
+          <CateringSection />
+          <TestimonialsSection />
+          <ContactSection />
+          <GallerySection />
+        </div>
       </main>
       <Footer />
     </>

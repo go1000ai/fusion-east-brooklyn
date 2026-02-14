@@ -4,6 +4,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface ImageCard {
@@ -20,6 +21,7 @@ interface ImageCarouselHeroProps {
   ctaText: string
   onCtaClick?: () => void
   images: ImageCard[]
+  backgroundImage?: string
   features?: Array<{
     title: string
     description: string
@@ -33,23 +35,10 @@ export function ImageCarouselHero({
   ctaText,
   onCtaClick,
   images,
-  features = [
-    {
-      title: "Realistic Results",
-      description: "Realistic Results Photos that look professionally crafted",
-    },
-    {
-      title: "Fast Generation",
-      description: "Turn ideas into images in seconds.",
-    },
-    {
-      title: "Diverse Styles",
-      description: "Choose from a wide range of artistic options.",
-    },
-  ],
+  backgroundImage,
+  features = [],
 }: ImageCarouselHeroProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [isHovering, setIsHovering] = useState(false)
   const [rotatingCards, setRotatingCards] = useState<number[]>([])
 
   // Continuous rotation animation
@@ -75,115 +64,151 @@ export function ImageCarouselHero({
   }
 
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-b from-background via-background to-background overflow-hidden">
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary/5 to-transparent rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-primary/5 to-transparent rounded-full blur-3xl animate-pulse" />
-      </div>
-
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
-        {/* Carousel Container */}
-        <div
-          className="relative w-full max-w-6xl h-96 sm:h-[500px] mb-12 sm:mb-16"
-          onMouseMove={handleMouseMove}
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-        >
-          {/* Rotating Image Cards */}
-          <div className="absolute inset-0 flex items-center justify-center perspective">
-            {images.map((image, index) => {
-              const angle = (rotatingCards[index] || 0) * (Math.PI / 180)
-              const radius = 180
-              const x = Math.cos(angle) * radius
-              const y = Math.sin(angle) * radius
-
-              // 3D perspective effect based on mouse position
-              const perspectiveX = (mousePosition.x - 0.5) * 20
-              const perspectiveY = (mousePosition.y - 0.5) * 20
-
-              return (
-                <div
-                  key={image.id}
-                  className="absolute w-32 h-40 sm:w-40 sm:h-48 transition-all duration-300"
-                  style={{
-                    transform: `
-                      translate(${x}px, ${y}px)
-                      rotateX(${perspectiveY}deg)
-                      rotateY(${perspectiveX}deg)
-                      rotateZ(${image.rotation}deg)
-                    `,
-                    transformStyle: "preserve-3d",
-                  }}
-                >
-                  <div
-                    className={cn(
-                      "relative w-full h-full rounded-2xl overflow-hidden shadow-2xl",
-                      "transition-all duration-300 hover:shadow-3xl hover:scale-110",
-                      "cursor-pointer group",
-                    )}
-                    style={{
-                      transformStyle: "preserve-3d",
-                    }}
-                  >
-                    <Image
-                      src={image.src || "/placeholder.svg"}
-                      alt={image.alt}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      priority={index < 3}
-                    />
-                    {/* Shine effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                </div>
-              )
-            })}
+    <div className="relative w-full h-screen max-h-[900px] overflow-hidden">
+      {/* Fixed Background Image — stays in place while page scrolls */}
+      {backgroundImage && (
+        <>
+          <div className="fixed inset-0 z-0">
+            <Image
+              src={backgroundImage}
+              alt="Fusion East Restaurant"
+              fill
+              className="object-cover"
+              priority
+            />
           </div>
-        </div>
+          {/* Medium shade overlay */}
+          <div className="fixed inset-0 bg-black/55 z-[1]" />
+        </>
+      )}
 
-        {/* Content Section */}
-        <div className="relative z-20 text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-foreground mb-4 sm:mb-6 text-balance leading-tight">
-            {title}
-          </h1>
+      {/* Gradient fade at bottom for smooth transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background to-transparent z-[2]" />
 
-          <p className="text-lg sm:text-xl text-muted-foreground mb-8 text-balance">{description}</p>
-
-          {/* CTA Button */}
-          <button
-            onClick={onCtaClick}
-            className={cn(
-              "inline-flex items-center gap-2 px-8 py-3 rounded-full",
-              "bg-primary text-primary-foreground font-medium",
-              "hover:shadow-lg hover:scale-105 transition-all duration-300",
-              "active:scale-95 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-              "group",
-            )}
+      {/* Main content: left text + right carousel */}
+      <div className="relative z-10 flex items-center h-full px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28">
+        <div className="mx-auto max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Left — Text content */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative z-20"
           >
-            {ctaText}
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-        </div>
+            <p className="mb-3 text-sm font-medium uppercase tracking-[0.3em] text-gold">
+              {subtitle}
+            </p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold text-warm-white mb-5 leading-tight">
+              {title}
+            </h1>
 
-        {/* Features Section */}
-        <div className="relative z-20 w-full max-w-4xl grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12 sm:mt-16">
-          {features.map((feature, index) => (
-            <div
-              key={index}
+            <p className="text-base sm:text-lg text-warm-white/70 mb-8 max-w-lg">
+              {description}
+            </p>
+
+            {/* CTA Button */}
+            <button
+              onClick={onCtaClick}
               className={cn(
-                "text-center p-6 rounded-xl",
-                "bg-card/50 backdrop-blur-sm border border-border/50",
-                "hover:bg-card/80 hover:border-border transition-all duration-300",
+                "inline-flex items-center gap-2 px-8 py-3.5 rounded-full",
+                "bg-gold text-dark font-semibold text-base",
+                "hover:bg-gold-light hover:shadow-lg hover:shadow-gold/25 hover:scale-105 transition-all duration-300",
+                "active:scale-95 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-dark",
                 "group",
               )}
             >
-              <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                {feature.title}
-              </h3>
-              <p className="text-sm sm:text-base text-muted-foreground">{feature.description}</p>
+              {ctaText}
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+
+            {/* Features — inline below text on desktop */}
+            {features.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3"
+              >
+                {features.map((feature, index) => (
+                  <div
+                    key={index}
+                    className={cn(
+                      "p-4 rounded-xl",
+                      "bg-dark/50 backdrop-blur-md border border-white/10",
+                      "hover:border-gold/30 transition-all duration-300",
+                      "group",
+                    )}
+                  >
+                    <h3 className="text-sm font-semibold text-warm-white mb-1 group-hover:text-gold transition-colors">
+                      {feature.title}
+                    </h3>
+                    <p className="text-xs text-warm-white/50">{feature.description}</p>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </motion.div>
+
+          {/* Right — Carousel */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="relative h-[400px] sm:h-[480px] lg:h-[520px] hidden sm:block"
+            onMouseMove={handleMouseMove}
+          >
+            {/* Rotating Image Cards */}
+            <div className="absolute inset-0 flex items-center justify-center" style={{ perspective: "800px" }}>
+              {images.map((image, index) => {
+                const angle = (rotatingCards[index] || 0) * (Math.PI / 180)
+                const radius = 170
+                const x = Math.cos(angle) * radius
+                const y = Math.sin(angle) * radius
+
+                // 3D perspective effect based on mouse position
+                const perspectiveX = (mousePosition.x - 0.5) * 20
+                const perspectiveY = (mousePosition.y - 0.5) * 20
+
+                return (
+                  <div
+                    key={image.id}
+                    className="absolute w-28 h-36 sm:w-32 sm:h-40 lg:w-36 lg:h-44 transition-all duration-300"
+                    style={{
+                      transform: `
+                        translate(${x}px, ${y}px)
+                        rotateX(${perspectiveY}deg)
+                        rotateY(${perspectiveX}deg)
+                        rotateZ(${image.rotation}deg)
+                      `,
+                      transformStyle: "preserve-3d",
+                    }}
+                  >
+                    <div
+                      className={cn(
+                        "relative w-full h-full rounded-2xl overflow-hidden shadow-2xl",
+                        "transition-all duration-300 hover:shadow-gold/20 hover:shadow-3xl hover:scale-110",
+                        "cursor-pointer group",
+                        "border border-white/10",
+                      )}
+                      style={{
+                        transformStyle: "preserve-3d",
+                      }}
+                    >
+                      <Image
+                        src={image.src || "/placeholder.svg"}
+                        alt={image.alt}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        priority={index < 3}
+                      />
+                      {/* Shine effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  </div>
+                )
+              })}
             </div>
-          ))}
+          </motion.div>
         </div>
       </div>
     </div>

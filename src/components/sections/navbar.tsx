@@ -43,17 +43,14 @@ export function Navbar() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href="#hero" className="flex items-center gap-3">
+            <Link href="#hero" className="flex items-center">
               <Image
                 src="/images/fusion-east-logo.png"
                 alt="Fusion East"
-                width={48}
-                height={48}
-                className="h-10 w-10 rounded-full object-cover sm:h-12 sm:w-12"
+                width={100}
+                height={100}
+                className="h-[100px] w-[100px] rounded-full object-cover"
               />
-              <span className="font-serif text-lg font-bold text-warm-white sm:text-xl">
-                Fusion East
-              </span>
             </Link>
 
             {/* Desktop Nav */}
@@ -74,9 +71,9 @@ export function Navbar() {
             <div className="hidden items-center gap-4 lg:flex">
               <a
                 href="tel:7189755065"
-                className="flex items-center gap-2 text-sm text-warm-white/70 transition-colors hover:text-gold"
+                className="flex items-center gap-2 text-base font-medium text-warm-white/70 transition-colors hover:text-gold"
               >
-                <Phone className="h-4 w-4" />
+                <Phone className="h-5 w-5" />
                 <span className="hidden xl:inline">(718) 975-5065</span>
               </a>
               <Link
