@@ -1,26 +1,165 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-dm-sans);
+  --font-serif: var(--font-playfair);
   --font-mono: var(--font-geist-mono);
+
+  /* Fusion East Brand Colors */
+  --color-gold: #D4A853;
+  --color-gold-light: #E8C878;
+  --color-gold-dark: #B8912F;
+  --color-coral: #E85D3A;
+  --color-coral-light: #FF7F5C;
+  --color-teal: #2EC4B6;
+  --color-teal-dark: #1A9E92;
+  --color-warm-white: #F5F0EB;
+  --color-dark: #0D0D0D;
+  --color-dark-card: #1A1A1A;
+  --color-dark-lighter: #222222;
+  --color-dark-border: #333333;
+
+  /* shadcn mappings */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Always dark — this is a bar/restaurant site */
+:root {
+  --radius: 0.75rem;
+  --background: #0D0D0D;
+  --foreground: #F5F0EB;
+  --card: #1A1A1A;
+  --card-foreground: #F5F0EB;
+  --popover: #1A1A1A;
+  --popover-foreground: #F5F0EB;
+  --primary: #D4A853;
+  --primary-foreground: #0D0D0D;
+  --secondary: #222222;
+  --secondary-foreground: #F5F0EB;
+  --muted: #222222;
+  --muted-foreground: #999999;
+  --accent: #E85D3A;
+  --accent-foreground: #F5F0EB;
+  --destructive: #E85D3A;
+  --border: #333333;
+  --input: #333333;
+  --ring: #D4A853;
+  --chart-1: #D4A853;
+  --chart-2: #2EC4B6;
+  --chart-3: #E85D3A;
+  --chart-4: #E8C878;
+  --chart-5: #FF7F5C;
+  --sidebar: #111111;
+  --sidebar-foreground: #F5F0EB;
+  --sidebar-primary: #D4A853;
+  --sidebar-primary-foreground: #0D0D0D;
+  --sidebar-accent: #222222;
+  --sidebar-accent-foreground: #F5F0EB;
+  --sidebar-border: #333333;
+  --sidebar-ring: #D4A853;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar for dark theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0D0D0D;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #D4A853;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Noise/grain texture overlay */
+.noise-overlay::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.03;
+  z-index: 100;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Glass-morphism utility */
+.glass {
+  background: rgba(26, 26, 26, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Gold glow effect */
+.glow-gold {
+  box-shadow: 0 0 20px rgba(212, 168, 83, 0.15), 0 0 60px rgba(212, 168, 83, 0.05);
+}
+
+/* Section transition gradient */
+.section-fade-top {
+  mask-image: linear-gradient(to bottom, transparent, black 10%);
+}
+.section-fade-bottom {
+  mask-image: linear-gradient(to bottom, black 90%, transparent);
 }
